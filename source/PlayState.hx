@@ -2440,7 +2440,7 @@ class PlayState extends MusicBeatState
 					vocals.stop();
 					FlxG.sound.music.stop();
 	
-					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+					FlxG.switchState(new VideoState('assets/videos/omgjumpscare.webm', new ExitState()));
 
 					#if windows
 					// Game Over doesn't get his own variable because it's only used here
@@ -2461,8 +2461,15 @@ class PlayState extends MusicBeatState
 	
 				vocals.stop();
 				FlxG.sound.music.stop();
-	
-				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+
+				if (StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase() == 'unspeakable')
+					{
+						FlxG.switchState(new VideoState('assets/videos/omgjumpscare.webm', new ExitState()));
+					}
+				else
+					{
+						openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+					}
 
 				#if windows
 				// Game Over doesn't get his own variable because it's only used here
