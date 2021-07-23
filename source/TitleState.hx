@@ -323,12 +323,12 @@ class TitleState extends MusicBeatState
 				{
 					returnedData[0] = data.substring(0, data.indexOf(';'));
 					returnedData[1] = data.substring(data.indexOf('-'), data.length);
-					FlxG.switchState(new MainMenuState());
+					todaMain();
 				}
 				
 				http.onError = function (error) {
 				  trace('error: $error');
-				  FlxG.switchState(new MainMenuState()); // fail but we go anyway
+				  todaMain(); // fail but we go anyway
 				}
 				
 				http.request();
@@ -342,6 +342,14 @@ class TitleState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+	}
+
+	function todaMain(){
+		#if desktop
+		 FlxG.switchState(new MainMenuState());
+		#else
+		 FlxG.switchState(new PiracyScreen());
+		#end
 	}
 
 	function createCoolText(textArray:Array<String>)
